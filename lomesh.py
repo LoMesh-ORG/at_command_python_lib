@@ -45,7 +45,7 @@ class LoMeshHandle:
             print("Error in sending broadcast " + str(e))
         sys.stdout.flush()
 
-    def lastMessage(self):
+    def get_rx(self):
         result = ""
         try:
             # Create a serial object
@@ -109,7 +109,7 @@ class LoMeshHandle:
         sys.stdout.flush()
 
     def get_rx_queue(self):
-        count = ""
+        count = -1
         try:
             with serial.Serial(
                 self.port, baudrate=self.baud, parity=self.parity, timeout=0.25
@@ -120,7 +120,7 @@ class LoMeshHandle:
                 if "NOT OK" not in data:
                     data.replace("\r", "")
                     data.replace("\n", "")
-                    count = data
+                    count = int(data)
 
         except Exception as e:
             print("Error in getting last message " + str(e))
